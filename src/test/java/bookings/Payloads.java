@@ -1,5 +1,7 @@
 package bookings;
 
+import bookings.pojos.Booking;
+import bookings.pojos.BookingDates;
 import net.datafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
 import utils.RandomDataGenerator;
@@ -53,5 +55,21 @@ public class Payloads {
         payload.put("bookingdates",bookingDates);
         payload.put("additionalneeds", RandomDataGenerator.getRandomAlphabets(25));
         return payload;
+    }
+
+    public static Booking getCreateBookingPayloadFromPojo(){
+        BookingDates bookingDates = BookingDates.builder()
+                .checkin(RandomDataGenerator.getRandomFutureDate(1))
+                .checkout(RandomDataGenerator.getRandomFutureDate(10))
+                .build();
+
+        return Booking.builder()
+                .firstname(RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.FIRSTNAME))
+                .lastname(RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.LASTNAME))
+                .totalprice(RandomDataGenerator.getRandomNumber(5000,7000))
+                .depositpaid("true")
+                .bookingdates(bookingDates)
+                .additionalneeds(RandomDataGenerator.getRandomAlphabets(25))
+                .build();
     }
 }
