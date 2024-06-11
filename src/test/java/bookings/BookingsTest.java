@@ -57,4 +57,12 @@ public class BookingsTest extends BookingAPIs{
         Response response = createBooking(payload,headers);
         Assert.assertEquals(response.statusCode(),200);
     }
+
+    @Test
+    public void createBooking5WithRandomData(){
+        Map<String,Object> payload = Payloads.getCreateBookingPayloadAsMap();
+        Map<String,String> headers = Headers.getCreateBookingHeaders();
+        Response response = createBooking(payload,headers);
+        Assert.assertEquals(response.statusCode(),200);
+    }
 }
