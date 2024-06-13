@@ -1,6 +1,7 @@
 package bookings;
 
 import bookings.pojos.Booking;
+import bookings.pojos.BookingDates;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -70,6 +71,23 @@ public class BookingsTest extends BookingAPIs{
     @Test
     public void createBooking6WithPojo(){
         Booking payload = Payloads.getCreateBookingPayloadFromPojo();
+        Map<String,String> headers = Headers.getCreateBookingHeaders();
+        Response response = createBooking(payload,headers);
+        Assert.assertEquals(response.statusCode(),200);
+    }
+
+    @Test
+    public void createBooking7WithDefaultValuesInPojo(){
+        Booking payload = new Booking();
+        Map<String,String> headers = Headers.getCreateBookingHeaders();
+        Response response = createBooking(payload,headers);
+        Assert.assertEquals(response.statusCode(),200);
+    }
+
+    @Test
+    public void createBooking8WithPassingPartialVales(){
+        BookingDates dates = new BookingDates().toBuilder().checkin("2024-01-01").checkout("2024-01-05").build();
+        Booking payload = new Booking().toBuilder().bookingdates(dates).build();
         Map<String,String> headers = Headers.getCreateBookingHeaders();
         Response response = createBooking(payload,headers);
         Assert.assertEquals(response.statusCode(),200);
