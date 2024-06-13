@@ -48,7 +48,7 @@ public class Payloads {
         payload.put("firstname", RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.FIRSTNAME));
         payload.put("lastname",RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.LASTNAME));
         payload.put("totalprice",RandomDataGenerator.getRandomNumber(5000,7000));
-        payload.put("depositpaid","true");
+        payload.put("depositpaid", RandomDataGenerator.getRandomBoolean());
         Map<String,Object> bookingDates = new HashMap<>();
         bookingDates.put("checkin",RandomDataGenerator.getRandomFutureDate(1));
         bookingDates.put("checkout",RandomDataGenerator.getRandomFutureDate(10));
@@ -67,7 +67,7 @@ public class Payloads {
                 .firstname(RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.FIRSTNAME))
                 .lastname(RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.LASTNAME))
                 .totalprice(RandomDataGenerator.getRandomNumber(5000,7000))
-                .depositpaid("true")
+                .depositpaid(RandomDataGenerator.getRandomBoolean())
                 .bookingdates(bookingDates)
                 .additionalneeds(RandomDataGenerator.getRandomAlphabets(25))
                 .build();

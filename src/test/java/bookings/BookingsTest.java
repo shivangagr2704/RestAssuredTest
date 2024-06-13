@@ -87,9 +87,11 @@ public class BookingsTest extends BookingAPIs{
     @Test
     public void createBooking8WithPassingPartialVales(){
         BookingDates dates = new BookingDates().toBuilder().checkin("2024-01-01").checkout("2024-01-05").build();
-        Booking payload = new Booking().toBuilder().bookingdates(dates).build();
+        Booking payload = new Booking().toBuilder().bookingdates(dates).depositpaid(true).build();
         Map<String,String> headers = Headers.getCreateBookingHeaders();
         Response response = createBooking(payload,headers);
         Assert.assertEquals(response.statusCode(),200);
     }
+
+
 }

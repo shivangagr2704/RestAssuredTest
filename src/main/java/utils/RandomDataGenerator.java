@@ -3,6 +3,7 @@ package utils;
 import net.datafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class RandomDataGenerator {
@@ -40,5 +41,10 @@ public class RandomDataGenerator {
 
     public static String getRandomAlphabets(int size){
         return RandomStringUtils.randomAlphabetic(size);
+    }
+
+    public static boolean getRandomBoolean(){
+        Random random = new Random();
+        return random.nextBoolean();
     }
 }
