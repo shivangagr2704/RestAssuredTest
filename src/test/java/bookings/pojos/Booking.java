@@ -1,9 +1,7 @@
 package bookings.pojos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import utils.RandomDataGenerator;
 import utils.RandomDataTypeNames;
 
@@ -13,7 +11,9 @@ import java.util.stream.Stream;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Builder(toBuilder = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Booking {
     private String firstname = RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.FIRSTNAME);
     private String lastname = RandomDataGenerator.getRandomDataFor(RandomDataTypeNames.LASTNAME);

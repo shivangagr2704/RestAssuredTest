@@ -2,6 +2,9 @@ package bookings;
 
 import bookings.pojos.Booking;
 import bookings.pojos.BookingDates;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,7 +17,7 @@ import java.util.Map;
 
 public class BookingsTest extends BookingAPIs{
 
-    @Test
+    /*@Test
     public void createBooking(){
         String endpoint = "https://restful-booker.herokuapp.com/booking";
         String payload = Payloads.getCreateBookingPayloadAsString("Test","Name","1234","true","2024-01-01","2025-01-01","breakfast");
@@ -91,6 +94,26 @@ public class BookingsTest extends BookingAPIs{
         Map<String,String> headers = Headers.getCreateBookingHeaders();
         Response response = createBooking(payload,headers);
         Assert.assertEquals(response.statusCode(),200);
+    }*/
+
+    @Test
+    public void createBookingAndVerifyResponse() throws JsonProcessingException {
+        Booking payload = new Booking();
+        Map<String,String> headers = Headers.getCreateBookingHeaders();
+        Response response = createBooking(payload,headers);
+
+        // Way 1 - Comparing each field individually
+        Assert.assertEquals(response.jsonPath().getString("booking.firstname"),payload.getFirstname());
+
+        // Way 2 - Map response part as POJO class and compare
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode responseJsonTree = objectMapper.readTree(response.getBody().asString());
+        String bookingDetails = responseJsonTree.get("booking").toString();
+        Booking createBookingResponse = objectMapper.readValue(bookingDetails, Booking.class);
+
+        Assert.assertEquals(createBookingResponse,payload);
+
     }
 
 
